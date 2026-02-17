@@ -1,16 +1,19 @@
 import {
-  registerService,
   loginService,
   logoutService,
+  registerService,
   updateProfileService,
 } from "../services/user.services.js";
+import connectDB from "../utils/db.js";
 
 export const register = async (req, res) => {
+  connectDB();
   const result = await registerService(req);
   return res.status(result.statusCode).json(result.body);
 };
 
 export const login = async (req, res) => {
+  connectDB();
   const result = await loginService(req);
   if (result.setCookie) {
     return res
@@ -23,7 +26,10 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   const result = await logoutService();
-  return res.status(result.statusCode).cookie("token", "", { maxAge: 0 }).json(result.body);
+  return res
+    .status(result.statusCode)
+    .cookie("token", "", { maxAge: 0 })
+    .json(result.body);
 };
 
 export const updateProfile = async (req, res) => {

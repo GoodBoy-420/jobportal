@@ -9,6 +9,7 @@ import {
 import connectDB from "../utils/db.js";
 
 export const postJob = async (req, res) => {
+  connectDB();
   const result = await postJobService(req);
   return res.status(result.statusCode).json(result.body);
 };
@@ -20,16 +21,19 @@ export const getAllJobs = async (req, res) => {
 };
 
 export const getJobById = async (req, res) => {
+  connectDB();
   const result = await getJobByIdService(req);
   return res.status(result.statusCode).json(result.body);
 };
 
 export const getAdminJobs = async (req, res) => {
+  connectDB();
   const result = await getAdminJobsService(req);
   return res.status(result.statusCode).json(result.body);
 };
 
 export const updateJob = async (req, res) => {
+  connectDB();
   const result = await updateJobService(req);
   return res.status(result.statusCode).json(result.body);
 };
