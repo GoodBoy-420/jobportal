@@ -1,11 +1,12 @@
 import {
-  postJobService,
+  deleteJobService,
+  getAdminJobsService,
   getAllJobsService,
   getJobByIdService,
-  getAdminJobsService,
+  postJobService,
   updateJobService,
-  deleteJobService,
 } from "../services/job.services.js";
+import connectDB from "../utils/db.js";
 
 export const postJob = async (req, res) => {
   const result = await postJobService(req);
@@ -13,6 +14,7 @@ export const postJob = async (req, res) => {
 };
 
 export const getAllJobs = async (req, res) => {
+  await connectDB();
   const result = await getAllJobsService(req);
   return res.status(result.statusCode).json(result.body);
 };
